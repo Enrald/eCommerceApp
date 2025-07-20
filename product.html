@@ -1,0 +1,185 @@
+<!-- product.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E‑Commerce App</title>
+    <link rel="stylesheet" href="product.css" />
+    <link rel="icon" type="image/png" href="Images/logo.png" />
+    <!-- Fonti Pacifico -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ulkit /alpinejs -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<!-- Navbar (importohet po ashtu në home.html) -->
+
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row md:items-center md:h-20 md:justify-between space-y-4 md:space-y-0">
+
+                <!-- Logo + Emri -->
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center">
+                        <img src="Images/logo.png" alt="ShopZone Logo"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 object-contain" />
+                        <span class="hidden sm:inline text-base md:text-2xl font-bold text-gray-600 whitespace-nowrap"
+                            style="font-family: 'Pacifico', cursive;">
+                            ShopZone
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Search -->
+                <form class="relative w-full md:flex-grow max-w-full md:max-w-3xl mx-0 md:mx-8">
+                    <input type="text" id="search-input" placeholder="What are you looking for?"
+                        class="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+                        </svg>
+                    </div>
+                </form>
+
+                <!-- Ikonat -->
+                <div class="flex items-center space-x-6 justify-end">
+                    <!-- Cart -->
+                    <div class="relative">
+                        <a href="#" aria-label="Cart"
+                            class="text-gray-700 hover:text-blue-600 p-2 rounded transition shadow-none hover:shadow-lg cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7a1 1 0 00.9 1.5h12.5M7 13l-4-8m0 0h.01" />
+                            </svg>
+                        </a>
+                        <span id="cart-count"
+                            class="absolute top-0 right-0 translate-x-1 translate-y-1 bg-red-500 text-white text-xs font-bold px-1.5 rounded-full">
+                            0
+                        </span>
+                    </div>
+
+
+
+                    <!-- User dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <a href="#" id="user-icon" @click.prevent="open = !open" aria-label="User account"
+                            class="text-gray-700 hover:text-blue-600 p-2 rounded transition shadow-none hover:shadow-lg cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5.121 17.804A9 9 0 1118.88 6.196 9 9 0 015.12 17.804zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </a>
+
+                        <!-- Dropdown menu -->
+                        <div id="user-menu" x-show="open" @click.outside="open = false" x-transition
+                            class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-md z-50"
+                            style="display: none;">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log in</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb + Sort -->
+    
+
+    <main class="product-page">
+        <!-- Sidebar filters -->
+        <aside class="filters pt-20 px- 10 pb-4 bg-white rounded shadow w-64">
+  <!-- Category (unchanged) -->
+  <h3 class="text-lg font-semibold mb-2">Category</h3>
+  <ul class="mb-6">
+    <li class="mb-1">
+      <label class="flex items-center text-sm">
+        <input type="checkbox" value="clothing" class="filter-category mr-2" />
+        Clothing
+      </label>
+    </li>
+    <li class="mb-1">
+      <label class="flex items-center text-sm">
+        <input type="checkbox" value="shoes" class="filter-category mr-2" />
+        Shoes
+      </label>
+    </li>
+    <li class="mb-1">
+      <label class="flex items-center text-sm">
+        <input type="checkbox" value="accessories" class="filter-category mr-2" />
+        Accessories
+      </label>
+    </li>
+  </ul>
+
+  <!-- ❇️ SORT BLOCK (moved & restyled) -->
+  <div class="mb-6">
+    <!-- Count of shown items -->
+    <div id="shownCount" class="text-sm text-gray-500 mb-2">
+      0 of 0
+    </div>
+    <!-- Label + dropdown -->
+    <label for="sortSelect" class="block text-sm font-medium text-gray-700 mb-1">
+      Sort by
+    </label>
+    <select id="sortSelect"
+            class="block w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <option value="default">Default</option>
+      <option value="price-asc">Price: Low → High</option>
+      <option value="price-desc">Price: High → Low</option>
+      <option value="rating">Top Rated</option>
+    </select>
+  </div>
+
+  <!-- Price (unchanged) -->
+  <h3 class="text-lg font-semibold mb-2">Price</h3>
+  <div class="filter-price mb-6">
+    <input type="range" id="priceMin" min="0" max="500" step="10" class="w-full mb-2" />
+    <input type="range" id="priceMax" min="0" max="500" step="10" class="w-full" />
+    <div class="text-sm text-gray-600 mt-1">
+      €<span id="minVal">0</span> – €<span id="maxVal">500</span>
+    </div>
+  </div>
+
+  <!-- Rating (unchanged) -->
+  <h3 class="text-lg font-semibold mb-2">Rating</h3>
+  <ul>
+    <li class="mb-1">
+      <label class="flex items-center text-sm">
+        <input type="checkbox" value="4" class="filter-rating mr-2" />
+        4★ & up
+      </label>
+    </li>
+    <li>
+      <label class="flex items-center text-sm">
+        <input type="checkbox" value="3" class="filter-rating mr-2" />
+        3★ & up
+      </label>
+    </li>
+  </ul>
+</aside>
+
+
+        <!-- Product grid -->
+        <section class="product-grid pt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid">
+            <!-- JS will inject product cards here -->
+        </section>
+    </main>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+
+    <script src="product.js" defer></script>
+</body>
+
+</html>
