@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">ShopZone</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Images/logo.png" />
+    <!-- Font Pacifico -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine (nëse duhet më vonë për dropdown) -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-gray-100 pt-20">
+
+    <!-- ================= HEADER ================= -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white shadow h-20">
+        <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
+
+            <!-- Logo + Emri -->
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="Images/logo.png" alt="ShopZone Logo" class="h-12 w-12 object-contain" />
+                <span class="hidden sm:inline text-2xl font-bold text-gray-700"
+                    style="font-family: 'Pacifico', cursive;">ShopZone</span>
+            </a>
+
+            <!-- Search -->
+            <form class="relative flex-1 mx-6 hidden md:block max-w-3xl">
+                <input id="search-input" type="text" placeholder="What are you looking for?"
+                    class="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+                    </svg>
+                </div>
+            </form>
+
+            <!-- Ikonat -->
+            <div class="flex items-center space-x-6">
+                <!-- Cart -->
+                <div class="relative">
+                    <a href="cart.html" aria-label="Cart" class="text-gray-700 hover:text-blue-600 transition p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7a1 1 0 00.9 1.5h12.5M7 13l-4-8m0 0h.01" />
+                        </svg>
+                    </a>
+                    <span id="cart-count"
+                        class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">0</span>
+                </div>
+
+                <!-- User (dropdown mund të aktivizohet më vonë me Alpine/JS) -->
+                <div class="relative" x-data="{open:false}">
+                    <button id="user-icon" @click.prevent="open=!open"
+                        class="text-gray-700 hover:text-blue-600 transition p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5.121 17.804A9 9 0 1118.88 6.196 9 9 0 015.12 17.804zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </button>
+                    <div id="user-menu" x-show="open" x-transition @click.outside="open=false"
+                        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg py-1 text-sm"
+                        style="display:none;">
+                        <a href="login.html" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Log in</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= MAIN ================= -->
+    <main id="product-main" class="min-h-[calc(100vh-5rem)] flex items-start justify-center px-4 md:px-8 py-10">
+
+        <div id="product-wrapper"
+            class="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-8 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- Kolona Imazhi -->
+            <div id="image-column" class="flex flex-col space-y-4">
+                <div id="image-box"
+                    class="w-full aspect-[4/3] bg-gray-50 border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center">
+                    <img id="product-image" src="img/sample-product.jpg" alt="Emri i Produktit"
+                        class="w-full h-full object-cover" />
+                </div>
+
+                <div id="thumbnails" class="flex space-x-3">
+                    <button
+                        class="thumb-item w-16 h-16 rounded-lg overflow-hidden border border-gray-300 ring-2 ring-blue-500">
+                        <img src="img/sample-product.jpg" alt="Thumb 1" class="w-full h-full object-cover" />
+                    </button>
+                    <button
+                        class="thumb-item w-16 h-16 rounded-lg overflow-hidden border border-gray-300 opacity-60 hover:opacity-100 transition">
+                        <img src="img/sample-product.jpg" alt="Thumb 2" class="w-full h-full object-cover" />
+                    </button>
+                    <button
+                        class="thumb-item w-16 h-16 rounded-lg overflow-hidden border border-gray-300 opacity-60 hover:opacity-100 transition">
+                        <img src="img/sample-product.jpg" alt="Thumb 3" class="w-full h-full object-cover" />
+                    </button>
+                </div>
+            </div>
+
+            <!-- Kolona Detaje -->
+            <div id="details-column" class="flex flex-col space-y-8">
+
+                <!-- Titull & Çmim -->
+                <section id="title-price" class="space-y-3">
+                    <h1 id="product-title" class="text-4xl font-bold text-gray-800 leading-tight">Emri i Produktit</h1>
+                    <div class="flex items-baseline space-x-4">
+                        <p id="product-price" class="text-3xl font-semibold text-green-600">$49.99</p>
+                        <p id="product-old-price" class="text-lg line-through text-gray-400 hidden">$59.99</p>
+                        <span id="product-discount-badge"
+                            class="hidden bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">-20%</span>
+                    </div>
+                </section>
+
+                <!-- Rating -->
+                <section id="rating-section" class="space-y-2">
+                    <div id="star-rating-container" class="flex items-center space-x-3">
+                        <div id="star-rating" class="flex space-x-1 text-3xl select-none">
+                            <span class="star text-gray-400 cursor-pointer">☆</span>
+                            <span class="star text-gray-400 cursor-pointer">☆</span>
+                            <span class="star text-gray-400 cursor-pointer">☆</span>
+                            <span class="star text-gray-400 cursor-pointer">☆</span>
+                            <span class="star text-gray-400 cursor-pointer">☆</span>
+                        </div>
+                        <span id="average-rating" class="text-sm text-gray-600 ml-2 translate-y-[2px]">4.3</span>
+                    </div>
+
+                    <div id="rating-hint" class="text-xs text-gray-400">Kliko për të vlerësuar</div>
+                </section>
+
+                <!-- Përshkrimi -->
+                <section id="description-section" class="space-y-2">
+                    <h2 class="text-lg font-semibold text-gray-800">Përshkrimi</h2>
+                    <p id="product-description" class="text-gray-700 leading-relaxed">
+                        Ky është një përshkrim i detajuar i produktit. Ai përfshin karakteristikat, përfitimet dhe
+                        informacion të dobishëm për klientin.
+                    </p>
+                </section>
+
+                <!-- Specifikime -->
+                <section id="specs-section" class="space-y-2">
+                    <h2 class="text-lg font-semibold text-gray-800">Specifikime</h2>
+                    <ul id="specs-list" class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Material: Shembull</li>
+                        <li>Ngjyrë: E zezë</li>
+                        <li>Garanci: 12 muaj</li>
+                    </ul>
+                </section>
+
+                <!-- Veprime -->
+                <section id="actions-section" class="space-y-4">
+                    <div id="quantity-row" class="flex items-center space-x-4">
+                        <label for="quantity" class="text-sm font-medium text-gray-700">Sasia:</label>
+                        <div class="flex items-center space-x-2">
+                            <button id="btn-qty-dec"
+                                class="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-lg text-lg font-medium hover:bg-gray-100">-</button>
+                            <input id="quantity" type="number" min="1" value="1"
+                                class="w-20 text-center border border-gray-300 rounded-lg py-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <button id="btn-qty-inc"
+                                class="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-lg text-lg font-medium hover:bg-gray-100">+</button>
+                        </div>
+                    </div>
+
+                    <div id="buttons-row" class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <button id="add-to-cart-btn"
+                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-4 rounded-xl transition">
+                            Add to Cart
+                        </button>
+                        <button id="buy-now-btn"
+                            class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-4 rounded-xl transition">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div id="extra-flags" class="flex flex-wrap gap-3 text-xs">
+                        <span id="in-stock-badge"
+                            class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Në stok</span>
+                        <span id="fast-ship-badge"
+                            class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">Dërgesë e
+                            shpejtë</span>
+                        <span id="return-policy-badge"
+                            class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">30 ditë kthim</span>
+                    </div>
+                </section>
+
+                <!-- Dërgesa & Siguria -->
+                <section id="shipping-section" class="space-y-2">
+                    <h2 class="text-lg font-semibold text-gray-800">Dërgesa & Siguria</h2>
+                    <ul id="shipping-list" class="text-gray-600 space-y-1 text-sm">
+                        <li>🚚 Dërgesë brenda 2–4 ditëve</li>
+                        <li>🔒 Pagesë e sigurt</li>
+                        <li>💬 Support 24/7</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
